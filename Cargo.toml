@@ -7,7 +7,7 @@ edition = "2021"
 repository = "https://github.com/Riceman2000/d2c-rs"
 
 [dependencies]
-cloudflare = "0.11.0"
+cloudflare = { git = "https://github.com/cloudflare/cloudflare-rs.git", rev = "f14720e42184ee176a97676e85ef2d2d85bc3aae" }
 public-ip = "0.2.2"
 serde = "1.0.208"
 serde_derive = "1.0.208"
