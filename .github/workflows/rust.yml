@@ -1,0 +1,41 @@
+name: Rust
+
+on: [push, pull_request]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: cargo-fmt
+        run: cargo fmt --verbose --check
+
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: cargo-clippy
+        run: cargo clippy --all-targets --color always -- -D warnings 
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: cargo-test
+        run: cargo test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: build-linux-amd64
+        run: cargo build --release
+      - name: artifact-build
+        uses: actions/upload-artifact@v3
+        with:
+          name: d2c-rs-linux-amd64
+          path: target/release/d2c-rs
