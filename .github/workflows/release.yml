@@ -1,0 +1,20 @@
+name: Rust
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to crates.io
+      run: cargo login $CRATES_IO_TOKEN
+      env:
+        # https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables
+        CRATES_IO_TOKEN: ${{ secrets.crates_io_token }} 
+    - name: Dry run publish
+      run: cargo publish --dry-run --manifest-path cloudflare/Cargo.toml
+    - name: Publish
+      run: cargo publish --manifest-path cloudflare/Cargo.toml
