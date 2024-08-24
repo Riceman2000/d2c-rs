@@ -44,7 +44,7 @@ async fn main() {
         process::exit(0);
     }
 
-    // Setup loging
+    // Setup logging
     let subscriber = tracing_subscriber::FmtSubscriber::new();
     tracing::subscriber::set_global_default(subscriber).unwrap();
 
@@ -60,7 +60,7 @@ async fn main() {
         process::exit(1);
     }
     if !config_dir.is_dir() {
-        error!("Config dir at {CONFIG_DIR} is not a direcory");
+        error!("Config dir at {CONFIG_DIR} is not a directory");
         process::exit(1);
     }
 
