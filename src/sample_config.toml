@@ -1,0 +1,11 @@
+[api]
+zone-id = "aaa" # your DNS zone ID
+api-key = "bbb" # your API key with DNS records permissions
+
+[[dns]]
+name = "dns1.example.com" # DNS name
+proxy = true              # Proxied by Cloudflare?
+
+[[dns]]
+name = "dns2.example.com"
+proxy = false

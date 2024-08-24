@@ -1,0 +1,17 @@
+[package]
+name = "d2c-rs"
+version = "0.1.0"
+readme = "README.md"
+license = "MIT"
+edition = "2021"
+repository = "https://github.com/Riceman2000/d2c-rs"
+
+[dependencies]
+cloudflare = "0.11.0"
+public-ip = "0.2.2"
+serde = "1.0.208"
+serde_derive = "1.0.208"
+tokio = { version = "1.39.3", features = ["full"] }
+toml = "0.8.19"
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"

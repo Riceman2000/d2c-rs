@@ -1,0 +1,20 @@
+d2c (Dynamic Dns Cloudflare): Update the Cloudflare DNS A records for your dynamic IP.
+
+Usage: d2c-rs
+
+`d2c` UPDATES existing records. Please, create them in Cloudflare Dashboard before running this script.
+
+The configuration is done in `/etc/d2c/*.toml` files in TOML format.
+Configuration file structure:
+
+[api]
+zone-id = "<zone id>"
+api-key = "<api key>"
+
+[[dns]]
+name = "test.example.com"
+proxy = false
+
+[[dns]]
+name = "test2.example.com"
+proxy = true
