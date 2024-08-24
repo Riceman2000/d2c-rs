@@ -2,11 +2,20 @@
 
 Update Cloudflare DNS 'A' records with your public IP.
 
-Created to be a drop in replacement for this tool: https://github.com/ddries/d2c-rs
+Created to be a drop in replacement for this tool: https://github.com/ddries/d2c.rs
 
 ---
 
-d2c-rs (Dynamic DNS Cloudflare) is a very simple program to automatically update the IP address of A DNS records from Cloudflare using your current public IP. This tool is designed to be run regularly e.g. on a [cron](https://en.wikipedia.org/wiki/Cron) job.
+d2c-rs (Dynamic DNS Cloudflare) is a very simple program to automatically update the IP address of A DNS records from Cloudflare using your current public IP. This tool is designed to be run regularly e.g. on a [cronjob](https://en.wikipedia.org/wiki/Cron).
+
+## Project goals 
+- Ease of use for the most simple use case of updating a DNS 'A' record for a single server
+- "Fire and forget" configuration that doesn't take forever
+
+## Project non-goals
+- Adapting the entire Cloudflare DNS API
+- Adding a ton of configuration options 
+- Converting this to a daemon or service
 
 ### Configure
 
