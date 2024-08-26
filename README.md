@@ -4,13 +4,18 @@ Update Cloudflare DNS 'A' records with your public IP.
 
 Created to be a drop in replacement for this tool: https://github.com/ddries/d2c.rs
 
+> [!WARNING]  
+> This code has not been published to Crates.io due to the dependency [`cloudflare-rs`](https://github.com/cloudflare/cloudflare-rs) requiring the latest git revision. 
+> Once this dependency has been updated on Crates.io and the necessary patches published, d2c-rs will be published to Crates.io.
+> Until then, the only installation method is to clone this repository and build via cargo.
+
 ---
 
 d2c-rs (Dynamic DNS Cloudflare) is a very simple program to automatically update the IP address of A DNS records from Cloudflare using your current public IP. This tool is designed to be run regularly e.g. on a [cronjob](https://en.wikipedia.org/wiki/Cron).
 
 ## Project goals 
 - Ease of use for the most simple use case of updating a DNS 'A' record for a single server
-- "Fire and forget" configuration that doesn't take forever
+- "Fire and forget" configuration that is as simple as possible
 
 ## Project non-goals
 - Adapting the entire Cloudflare DNS API
@@ -41,6 +46,12 @@ proxy = false
 
 When d2c-rs is run, it will process each `*.toml` TOML file in the `/etc/d2c/` directory, updating the records configured in each with the current public IP of the machine. The A records must be created from the Cloudflare dashboard first; then d2c-rs will be able to update them with the server's public IP. 
 
+To run d2c-rs regularly, create a cronjob:
+
+```sh
+crontab -e # set cronjob to run d2c-rs periodically
+```
+
 ### Usage
 ```sh
 d2c-rs --help
@@ -70,7 +81,20 @@ name = "test2.example.com"
 proxy = true
 ```
 
-#### Installing d2c-rs
+For more verbosity, use the `-v` or `-vv` flags:
+
+```sh 
+d2c-rs -v
+# Or
+d2c-rs -vv
+```
+
+### Installation
+
+#### From Crates.io
+
+> [!WARNING]  
+> This method currently does not work.
 
 Install d2c-rs using Cargo:
 
@@ -78,39 +102,12 @@ Install d2c-rs using Cargo:
 cargo install d2c-rs
 ```
 
-Then, run d2c-rs from command-line for the first time to create the configuration directory:
+#### Manually from source
 
-```sh
-d2c-rs
-```
+Clone this repository and ensure you have [rustup](https://rustup.rs/) installed.
 
-Create configuration file(s) with your zone id, API key and the desired DNS records. Only one pair of `zone-id` and `api-key` in each file. If you have any other zones or another Cloudflare account you want to configure it is possible by creating additional TOML files.
-
-```sh
-sudo nano /etc/d2c/d2c.toml
-```
-
-```toml
-[api]
-zone-id = "aaa"
-api-key = "bbb"
-
-[[dns]]
-name = "test.example.com"
-proxy = false
-
-[[dns]]
-name = "test2.example.com"
-proxy = true
-```
-
-Finally, you can run d2c-rs to update the DNS records specified in your configuration files:
-
-```sh
-d2c-rs
-```
-or create a cronjob:
-
-```sh
-crontab -e # set cronjob to run d2c-rs periodically
+```sh 
+git clone https://github.com/Riceman2000/d2c-rs.git
+cd d2c-rs
+cargo install --path .
 ```
