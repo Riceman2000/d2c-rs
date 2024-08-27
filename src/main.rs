@@ -76,11 +76,9 @@ struct ConfigFile {
 }
 
 #[derive(Debug, Deserialize)]
+#[serde(rename_all = "kebab-case")]
 struct Api {
-    #[serde(alias = "zone-id")]
     zone_id: String,
-
-    #[serde(alias = "api-key")]
     api_key: String,
 }
 
