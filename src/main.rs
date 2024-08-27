@@ -1,39 +1,33 @@
-use std::{env, net::Ipv4Addr, path::PathBuf, process};
+use std::{net::Ipv4Addr, path::PathBuf, process};
 
+use clap::Parser;
+use clap_verbosity_flag::InfoLevel;
 use cloudflare::{
     endpoints::dns,
     framework::{self, async_api, auth},
 };
 use serde_derive::Deserialize;
 use tokio::fs;
-use tracing::{debug, error, info, warn, Level};
+use tracing::{debug, error, info, warn};
+use tracing_log::AsTrace;
 
 const CONFIG_DIR: &str = "/etc/d2c";
 const SAMPLE_CONFIG: &str = include_str!("./sample_config.toml");
 const USAGE: &str = include_str!("./usage.txt");
 
+#[derive(Debug, Parser)]
+#[command(author, version, about, long_about = USAGE)]
+struct Args {
+    #[command(flatten)]
+    verbosity: clap_verbosity_flag::Verbosity<InfoLevel>,
+}
+
 #[tokio::main]
 async fn main() {
-    // Send usage string
-    let args: Vec<String> = env::args().collect();
-    if args.iter().any(|arg| arg == "--help" || arg == "-h") {
-        println!("{USAGE}");
-        process::exit(0);
-    }
-
-    // Setup logging
-    let subscriber = if args.iter().any(|a| *a == "-vv") {
-        tracing_subscriber::FmtSubscriber::builder()
-            .with_max_level(Level::TRACE)
-            .finish()
-    } else if args.iter().any(|a| *a == "-v") {
-        tracing_subscriber::FmtSubscriber::builder()
-            .with_max_level(Level::DEBUG)
-            .finish()
-    } else {
-        tracing_subscriber::FmtSubscriber::new()
-    };
-    tracing::subscriber::set_global_default(subscriber).unwrap();
+    let args = Args::parse();
+    tracing_subscriber::fmt()
+        .with_max_level(args.verbosity.log_level_filter().as_trace())
+        .init();
 
     validate_config_dir().await;
 
