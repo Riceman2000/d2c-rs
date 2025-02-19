@@ -1,6 +1,7 @@
 [package]
 name = "d2c-rs"
 version = "0.0.1"
+description = "Update Cloudflare DNS 'A' records with your public IP."
 readme = "README.md"
 license = "MIT"
 edition = "2021"
