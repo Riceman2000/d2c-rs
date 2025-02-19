@@ -51,7 +51,7 @@ async fn validate_config_dir() {
         match fs::create_dir(config_dir)
             .await {
             Ok(()) =>  info!("Directory created, you must populate it with at least one config file following this format:\n{SAMPLE_CONFIG}"),
-            Err(e) => error!("Failed to create config directory with: {e}"),
+            Err(e) => error!("Failed to create config directory with: {e:?}"),
         }
         process::exit(1);
     }
@@ -87,7 +87,7 @@ async fn parse_config_files() -> Vec<ConfigFile> {
     let mut config_files = match fs::read_dir(CONFIG_DIR).await {
         Ok(f) => f,
         Err(e) => {
-            error!("Failed to read config directory with: {e}");
+            error!("Failed to read config directory with: {e:?}");
             process::exit(1);
         }
     };
@@ -128,7 +128,7 @@ async fn update_records(configs: Vec<ConfigFile>, public_ip: Ipv4Addr) {
         let client = match async_api::Client::new(credentials, api_config, environment) {
             Ok(c) => c,
             Err(e) => {
-                error!("Failed to form API client with {e}");
+                error!("Failed to form API client with: {e:?}");
                 continue;
             }
         };
@@ -140,7 +140,7 @@ async fn update_records(configs: Vec<ConfigFile>, public_ip: Ipv4Addr) {
         let dns_list = match client.request(&dns_list_request).await {
             Ok(d) => d,
             Err(e) => {
-                error!("API request to list existing records failed with {e}");
+                error!("API request to list existing records failed with: {e:?}");
                 continue;
             }
         };
