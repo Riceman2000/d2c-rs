@@ -5,9 +5,8 @@ Update Cloudflare DNS 'A' records with your public IP.
 Created to be a drop in replacement for this tool: https://github.com/ddries/d2c.rs
 
 > [!WARNING]  
-> This code has not been published to Crates.io due to the dependency [`cloudflare-rs`](https://github.com/cloudflare/cloudflare-rs) requiring the latest git revision. 
-> Once this dependency has been updated on Crates.io and the necessary patches published, d2c-rs will be published to Crates.io.
-> Until then, the only installation method is to clone this repository and build via cargo.
+> This code currently does NOT WORK due to the dependency [`cloudflare-rs`](https://github.com/cloudflare/cloudflare-rs) not being updated to the latest API spec. 
+> Once this dependency has been updated on Crates.io and the necessary patches published, d2c-rs will be working.
 
 ---
 
