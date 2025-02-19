@@ -34,7 +34,7 @@ jobs:
       - name: build-linux-amd64
         run: cargo build --release
       - name: artifact-build
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: d2c-rs-linux-amd64
           path: target/release/d2c-rs
