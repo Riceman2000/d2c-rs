@@ -1,6 +1,6 @@
 [package]
 name = "d2c-rs"
-version = "0.0.0"
+version = "0.0.1"
 readme = "README.md"
 license = "MIT"
 edition = "2021"
