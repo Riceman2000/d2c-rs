@@ -8,13 +8,13 @@ edition = "2021"
 repository = "https://github.com/Riceman2000/d2c-rs"
 
 [dependencies]
-clap = "4.5.30"
+clap = "4.5.32"
 clap-verbosity-flag = "3.0.2"
-cloudflare = "0.13.0"
+cloudflare = "0.14.0"
 public-ip = "0.2.2"
-serde = "1.0.217"
-serde_derive = "1.0.217"
-tokio = { version = "1.43.0", features = ["full"] }
+serde = "1.0.219"
+serde_derive = "1.0.219"
+tokio = { version = "1.44.1", features = ["full"] }
 toml = "0.8.20"
 tracing = "0.1.41"
 tracing-log = "0.2.0"
