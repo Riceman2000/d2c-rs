@@ -4,12 +4,6 @@ Update Cloudflare DNS 'A' records with your public IP.
 
 Created to be a drop in replacement for this tool: https://github.com/ddries/d2c.rs
 
-> [!WARNING]  
-> This code currently does NOT WORK due to the dependency [`cloudflare-rs`](https://github.com/cloudflare/cloudflare-rs) not being updated to the latest API spec. 
-> Once this dependency has been updated on Crates.io and the necessary patches published, d2c-rs will be working.
-
----
-
 d2c-rs (Dynamic DNS Cloudflare) is a very simple program to automatically update the IP address of A DNS records from Cloudflare using your current public IP. This tool is designed to be run regularly e.g. on a [cronjob](https://en.wikipedia.org/wiki/Cron).
 
 ## Project goals 
@@ -43,12 +37,12 @@ name = "dns2.example.com"
 proxy = false
 ```
 
-When d2c-rs is run, it will process each `*.toml` TOML file in the `/etc/d2c/` directory, updating the records configured in each with the current public IP of the machine. The A records must be created from the Cloudflare dashboard first; then d2c-rs will be able to update them with the server's public IP. 
+When d2c-rs is run, it will process each `*.toml` TOML file in the `/etc/d2c/` directory, updating the records configured in each with the current public IP of the machine. The records must be created from the Cloudflare dashboard first; then d2c-rs will be able to update them with the server's public IP. 
 
 To run d2c-rs regularly, create a cronjob:
 
 ```sh
-crontab -e # set cronjob to run d2c-rs periodically
+crontab -e
 ```
 
 ### Usage
@@ -62,7 +56,7 @@ d2c (Dynamic Dns Cloudflare): Update the Cloudflare DNS A records for your dynam
 
 Usage: d2c-rs
 
-`d2c` UPDATES existing records. Please, create them in Cloudflare Dashboard before running this script.
+`d2c` UPDATES existing records. Please create them in the Cloudflare Dashboard before running this script.
 
 The configuration is done in `/etc/d2c/*.toml` files in TOML format.
 Configuration file structure:
@@ -91,9 +85,6 @@ d2c-rs -vv
 ### Installation
 
 #### From Crates.io
-
-> [!WARNING]  
-> This method currently does not work.
 
 Install d2c-rs using Cargo:
 

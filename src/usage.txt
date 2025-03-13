@@ -2,7 +2,7 @@ d2c (Dynamic Dns Cloudflare): Update the Cloudflare DNS A records for your dynam
 
 Usage: d2c-rs
 
-`d2c` UPDATES existing records. Please, create them in Cloudflare Dashboard before running this script.
+`d2c` UPDATES existing records. Please create them in the Cloudflare Dashboard before running this script.
 
 The configuration is done in `/etc/d2c/*.toml` files in TOML format.
 Configuration file structure:
