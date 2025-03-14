@@ -156,7 +156,6 @@ async fn update_records(configs: Vec<ConfigFile>, public_ip: Ipv4Addr) {
                 warn!("Matching DNS record for \"{}\" could not be found to update, please add it in Cloudflare manually.", dns.name);
                 continue;
             };
-            let last_update_time = existing_record.modified_on;
             let update_request = dns::UpdateDnsRecord {
                 zone_identifier: &config.api.zone_id,
                 identifier: &existing_record.id,
@@ -175,10 +174,7 @@ async fn update_records(configs: Vec<ConfigFile>, public_ip: Ipv4Addr) {
                 }
             };
             let update_name = update_response.result.name;
-            let update_time = update_response.result.modified_on;
-            let since_last_update = update_time - last_update_time;
-            let since_last_update = since_last_update.num_hours();
-            info!("Record \"{update_name}\" updated, hours since last update: {since_last_update}");
+            info!("Record \"{update_name}\" updated");
         }
     }
 }
