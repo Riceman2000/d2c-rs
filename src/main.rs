@@ -3,8 +3,12 @@ use std::{net::Ipv4Addr, path::PathBuf, process};
 use clap::Parser;
 use clap_verbosity_flag::InfoLevel;
 use cloudflare::{
-    endpoints::dns,
-    framework::{self, async_api, auth},
+    endpoints::dns::dns,
+    framework::{
+        auth::Credentials,
+        client::{self, async_api::Client},
+        Environment,
+    },
 };
 use serde_derive::Deserialize;
 use tokio::fs;
@@ -120,12 +124,12 @@ async fn parse_config_files() -> Vec<ConfigFile> {
 async fn update_records(configs: Vec<ConfigFile>, public_ip: Ipv4Addr) {
     for config in configs {
         info!("Processing file {}", config.file_name);
-        let credentials = auth::Credentials::UserAuthToken {
+        let credentials = Credentials::UserAuthToken {
             token: config.api.api_key,
         };
-        let api_config = framework::HttpApiClientConfig::default();
-        let environment = framework::Environment::Production;
-        let client = match async_api::Client::new(credentials, api_config, environment) {
+        let api_config = client::ClientConfig::default();
+        let environment = Environment::Production;
+        let client = match Client::new(credentials, api_config, environment) {
             Ok(c) => c,
             Err(e) => {
                 error!("Failed to form API client with: {e:?}");
